@@ -1,4 +1,4 @@
-namespace PoolManager
+namespace Pool
 {
     public class Factory<T> : IFactory<T> where T : new()
     {
