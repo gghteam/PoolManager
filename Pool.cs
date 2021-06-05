@@ -41,7 +41,7 @@
         {
             for (int i = 0; i < members.Count; i++)
             {
-                if (unavailable.Contains(members[i]))
+                if (!unavailable.Contains(members[i]))
                 {
                     unavailable.Add(members[i]);
                     return members[i];
