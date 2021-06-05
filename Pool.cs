@@ -6,6 +6,17 @@
 
     public class Pool<T> : IEnumerable where T : IResettable
     {
+        public Pool(IFactory<T> factory) : this(factory, 5) { }
+
+        public Pool(IFactory<T> factory, int poolSize)
+        {
+            this.factory = factory;
+            for(int i = 0; i < poolSize; i++)
+            {
+                Create();
+            }
+        }
+
         ///<summary>members : 풀 안에 생성된 모든 멤버들</summary>        
         public List<T> members = new List<T>();
 
