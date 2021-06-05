@@ -1,5 +1,5 @@
 # Generic Pool Manager(제네릭 풀 매니저)
-제네릭 풀 매니저는 Liam Ederzeel의 튜토리얼(https://liamederzeel.com/a-generic-object-pool-for-unity3d/)을 기반으로 한 풀 매니저입니다.
+제네릭 풀 매니저는 Liam Ederzeel의 튜토리얼(https://liamederzeel.com/a-generic-object-pool-for-unity3d/) 을 기반으로 한 풀 매니저입니다.
 이 풀 매니저는 클래스, 모노비해비어를 상속받은 클래스, 프리팹을 생성하는데 사용할 수 있습니다.
 
 ## 설치
