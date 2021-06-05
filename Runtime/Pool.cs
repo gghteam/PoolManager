@@ -1,53 +1,57 @@
+ï»¿using System;
+using System.Collections;
 using System.Collections.Generic;
 
-namespace PoolManager
+public class Pool<T> : IEnumerable where T : IResettable
 {
-    public class Pool<T> where T : IResettable
+    ///<summary>members : í’€ ì•ˆì— ìƒì„±ëœ ëª¨ë“  ë©¤ë²„ë“¤</summary>        
+    public List<T> members = new List<T>();
+
+    ///<summary>unavailable : ì´ë¯¸ ì‚¬ìš©ì¤‘ì¸ ë©¤ë²„ë“¤</summary>        
+    public HashSet<T> unavailable = new HashSet<T>();
+
+    ///<summary>factory : ìƒˆ ë©¤ë²„ë¥¼ ìƒì„±í•˜ê¸° ìœ„í•œ ì¸í„°í˜ì´ìŠ¤</summary> 
+    IFactory<T> factory;
+
+    /// <summary>ìƒˆ ë©¤ë²„ ìƒì„±</summary>
+    /// <returns>T</returns>
+    T Create()
     {
-        ///<summary>members : Ç® ¾È¿¡ »ı¼ºµÈ ¸ğµç ¸â¹öµé</summary>        
-        public List<T> members = new List<T>();
+        T member = factory.Create();
+        members.Add(member);
+        return member;
+    }
 
-        ///<summary>unavailable : ÀÌ¹Ì »ç¿ëÁßÀÎ ¸â¹öµé</summary>        
-        public HashSet<T> unavailable = new HashSet<T>();
-
-        ///<summary>factory : »õ ¸â¹ö¸¦ »ı¼ºÇÏ±â À§ÇÑ ÀÎÅÍÆäÀÌ½º</summary> 
-        IFactory<T> factory;
-
-        /// <summary>»õ ¸â¹ö »ı¼º</summary>
-        /// <returns>T</returns>
-        T Create()
+    /// <summary>ë©¤ë²„ë¥¼ êº¼ë‚´ê±°ë‚˜ í˜¹ì€ ìƒˆë¡œ ìƒì„±.</summary>
+    /// <returns>T</returns>        
+    public T Allocate()
+    {
+        for (int i = 0; i < members.Count; i++)
         {
-            T member = factory.Create();
-            members.Add(member);
-            return member;
-        }
-
-        /// <summary>¸â¹ö¸¦ ²¨³»°Å³ª È¤Àº »õ·Î »ı¼º.</summary>
-        /// <returns>T</returns>        
-        public T Allocate()
-        {
-            for (int i = 0; i < members.Count; i++)
+            if (unavailable.Contains(members[i]))
             {
-                if (unavailable.Contains(members[i]))
-                {
-                    unavailable.Add(members[i]);
-                    return members[i];
-                }
+                unavailable.Add(members[i]);
+                return members[i];
             }
-
-            T newMembers = Create();
-            unavailable.Add(newMembers);
-            return newMembers;
         }
 
-        /// <summary>
-        /// ¸â¹ö¸¦ ´Ù½Ã »ç¿ë °¡´ÉÇÏµµ·Ï Ç®·Î µ¹·Á³õ´Â´Ù.
-        /// </summary>
-        /// <param name="member">µ¹·Á³õÀ» Ç®ÀÇ ¸â¹ö</param>
-        public void Release(T member)
-        {
-            member.Reset();
-            unavailable.Remove(member);
-        }
+        T newMembers = Create();
+        unavailable.Add(newMembers);
+        return newMembers;
+    }
+
+    /// <summary>
+    /// ë©¤ë²„ë¥¼ ë‹¤ì‹œ ì‚¬ìš© ê°€ëŠ¥í•˜ë„ë¡ í’€ë¡œ ëŒë ¤ë†“ëŠ”ë‹¤.
+    /// </summary>
+    /// <param name="member">ëŒë ¤ë†“ì„ í’€ì˜ ë©¤ë²„</param>
+    public void Release(T member)
+    {
+        member.Reset();
+        unavailable.Remove(member);
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return (IEnumerator<T>)members.GetEnumerator();
     }
 }

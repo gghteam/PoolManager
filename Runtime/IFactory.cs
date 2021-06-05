@@ -1,8 +1,5 @@
-namespace PoolManager
+public interface IFactory<T>
 {
-    public interface IFactory<T>
-    {
-        T Create();
-    }
+    T Create();
 }
 
