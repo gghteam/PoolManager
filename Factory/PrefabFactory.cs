@@ -19,8 +19,9 @@ namespace Pool
         public T Create()
         {            
             GameObject tempGameObject = GameObject.Instantiate(prefab) as GameObject;
-            tempGameObject.name = name + index.ToString();            
-            T objectOfType = tempGameObject.GetComponent<T>() ? tempGameObject.GetComponent<T> : tempGameObject.AddComponent<T>();
+            tempGameObject.name = name + index.ToString();
+            T objectOfType = tempGameObject.GetComponent<T>();
+            if (objectOfType == null) tempGameObject.AddComponent<T>();
             index++;
             return objectOfType;
         }
