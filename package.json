@@ -1,0 +1,17 @@
+{
+  "name": "kr.go.ggm.poolmanager",
+  "version": "0.0.1",
+  "displayName": "Generic Pool Manager",
+  "description": "This package contains a generic pool manager based on Liam Ederzeel's tutorial.",  
+ },
+ "keywords": [
+    "pool",
+    "generic",
+    "poolmanager"
+  ],
+  "author": {
+    "name": "TeacherShiba",
+    "email": "dmetinn@gmail.com",
+    "url": "https://github.com/hanseungtheshiba"
+  }
+}
