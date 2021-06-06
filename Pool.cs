@@ -67,6 +67,11 @@
         {
             return (IEnumerator<T>)members.GetEnumerator();
         }
+
+        public int GetUsedCount()
+        {
+            return unavailable.Count;
+        }
     }
 }
 
