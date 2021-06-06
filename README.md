@@ -15,7 +15,7 @@ public class Example : MonoBehaviour {
     Pool<Enemy> pool;
 
     void Start() {
-        pool = new Pool<Enemy>(new Factory<Enemy>(), START_SIZE;
+        pool = new Pool<Enemy>(new Factory<Enemy>(), START_SIZE);
     }
 
 	void Spawn() {
@@ -42,7 +42,7 @@ public class Example : MonoBehaviour {
     Pool<Enemy> pool;
 
     void Start() {
-        pool = new Pool<MyPooledType>(new MonoBehaviourFactory<Enemy>(), START_SIZE;
+        pool = new Pool<Enemy>(new MonoBehaviourFactory<Enemy>(), START_SIZE);
     }
 
 	void Spawn() {
@@ -70,7 +70,7 @@ public class Example : MonoBehaviour {
     GameObject prefab;
 
     void Start() {
-        pool = new Pool<Enemy>(new PrefabFactory<Enemy>(prefab), START_SIZE;
+        pool = new Pool<Enemy>(new PrefabFactory<Enemy>(prefab), START_SIZE);
     }
 
 	void Spawn() {
