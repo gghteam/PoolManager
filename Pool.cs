@@ -54,13 +54,20 @@
         }
 
         /// <summary>
-        /// 멤버를 다시 사용 가능하도록 풀로 돌려놓는다.
+        /// 멤버를 다시 사용 가능하도록 풀로 돌려놓는다. 멤버에 없을 경우 멤버로 추가.
         /// </summary>
         /// <param name="member">돌려놓을 풀의 멤버</param>
         public void Release(T member)
         {
             member.Reset();
-            unavailable.Remove(member);
+            if (unavailable.Contains(member))
+            {
+                unavailable.Remove(member);
+            }
+            else
+            {
+                members.Add(member);
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

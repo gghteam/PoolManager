@@ -77,6 +77,8 @@ public class Example : MonoBehaviour {
 		Enemy enemy = pool.Allocate();
 
 		EventHandler handler = null;
+		
+		// 생성시 사망 처리용 Death 이벤트핸들러를 직접 정의 (Lambda식 구현)
 		handler = (sender, e) => {
 			pool.Release(enemy);
 			enemy.Death -= handler;
@@ -86,6 +88,24 @@ public class Example : MonoBehaviour {
 		enemy.gameObject.SetActive(true);
 	}
 } 
+```
+
+풀에 넣을 프리팹을 설정할 때
+```csharp
+using Pool;
+using System;
+
+public class Enemy : MonoBehaviour, IResettable
+{
+	// Spawn에서 지정해 줄 이벤트핸들러
+	public event EventHandler Death;
+	
+	public void Reset()
+	{
+		// 다시 풀로 올라갈 때 내용 구현 ex) 충돌체 리셋, HP 리셋 등등
+		// IResettable 인터페이스의 기본형으로 반드시 구현해야 오류가 없음.
+	}
+}
 ```
 
 용도에 맞는 새 팩토리를 만들어 사용할 때
